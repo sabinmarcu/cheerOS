@@ -10,11 +10,11 @@
     "@commitlint/config-lerna-scopes": "^8.3.4",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
-    "@types/webpack-env": "^1.15.1",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-import-resolver-parcel": "^1.10.3",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
@@ -24,6 +24,6 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "eslint packages/**/*.tsx --fix"
   }
 }

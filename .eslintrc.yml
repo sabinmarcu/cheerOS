@@ -18,7 +18,7 @@ settings:
     - .ts
     - .tsx
   "import/resolver":
-    node:
+    parcel:
       extensions:
         - .js
         - .jsx
@@ -28,6 +28,7 @@ env:
   browser: true
 rules:
   "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }]
+  "react/prop-types": 0
   "import/extensions":
     - 1
     - ignorePackages
