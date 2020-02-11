@@ -7,14 +7,13 @@ import React, {
   useDebugValue,
 } from 'react';
 
+import firebase from 'firebase/app';
 import {
   Admin,
 } from '../types';
 
-import * as firebase from 'firebase/app';
-
 import { log } from '../utils/log';
-import {useFirebase} from './firebase';
+import { useFirebase } from './firebase';
 
 export type AuthContextType = [(Admin | null), (firebase.auth.Auth | null)];
 
@@ -23,8 +22,8 @@ export const AuthContext = createContext<AuthContextType>([null, null]);
 export const useAuthContext = (): AuthContextType => {
   const [app] = useFirebase();
   const auth = useMemo(
-    () => app ? app.auth() : null,
-    [app]
+    () => (app ? app.auth() : null),
+    [app],
   );
   const [user, setUser] = useState<Admin | null>(null);
   useEffect(
@@ -32,47 +31,46 @@ export const useAuthContext = (): AuthContextType => {
       if (!auth) {
         return undefined;
       }
-      return auth.onAuthStateChanged((user) => {
-        log('🔑 New Auth State', user);
-        setUser(user && user.email ? { email: user.email } : null)
+      return auth.onAuthStateChanged((usr) => {
+        log('🔑 New Auth State', usr);
+        setUser(usr && usr.email ? { email: usr.email } : null);
       });
     },
     [auth, setUser],
-  )
+  );
   useDebugValue([
     'Auth',
-    !!auth ? 'Connected' : 'Disconnected',
+    auth ? 'Connected' : 'Disconnected',
     ';',
-    !!user ? user.email : 'No User'
+    user ? user.email : 'No User',
   ].join(' '));
-  return [user, auth]
-}
+  return [user, auth];
+};
 
-export const useAdmin = () => {
+export const useAdmin = (): [Admin | null, boolean] => {
   const [user] = useContext(AuthContext);
   const hasUser = useMemo(
     () => !!user,
-    [user]
+    [user],
   );
-  useDebugValue(!!user
+  useDebugValue(user
     ? `User: ${user.email}`
-    : 'No User'
-  );
+    : 'No User');
   return [user, hasUser];
-}
+};
 
-export const useAdminLogin = () => {
+export const useAdminLogin = (): [Function | null, boolean] => {
   const [, auth] = useContext(AuthContext);
   const hasAuth = useMemo(
     () => !!auth,
     [auth],
   );
   const authFunction = useMemo(
-    () => auth ? auth.signInWithEmailAndPassword : null,
+    () => (auth ? auth.signInWithEmailAndPassword : null),
     [auth],
-  )
+  );
   return [authFunction, hasAuth];
-}
+};
 
 export const AuthProvider: React.FC = ({ children }) => {
   const authContext = useAuthContext();
@@ -81,6 +79,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 AuthProvider.displayName = 'AuthProvider';

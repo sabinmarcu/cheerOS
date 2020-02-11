@@ -12,12 +12,12 @@ parserOptions:
 settings:
   react:
     version: detect
-  "import/extensions":
+  import/extensions:
     - .js
     - .jsx
     - .ts
     - .tsx
-  "import/resolver":
+  import/resolver:
     parcel:
       extensions:
         - .js
@@ -27,9 +27,15 @@ settings:
 env:
   browser: true
 rules:
-  "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }]
-  "react/prop-types": 0
-  "import/extensions":
+  react/jsx-filename-extension:
+    - 1
+    -
+      extensions:
+        - .jsx
+        - .tsx
+  react/prop-types: 0
+  react/jsx-props-no-spreading: 0
+  import/extensions:
     - 1
     - ignorePackages
     -

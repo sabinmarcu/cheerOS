@@ -5,12 +5,12 @@ import React, {
   useEffect,
   useDebugValue,
 } from 'react';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
 import { log } from '../utils/log';
-import { config as firebaseConfig } from '../config';
+import { config as firebaseConfig } from '../config/firebase';
 
 if (process.env.NODE_ENV !== 'production') {
   window.firebase = firebase;
@@ -32,7 +32,7 @@ export const useFirebaseProvider = (config = firebaseConfig): FirebaseContextTyp
     },
     [config],
   );
-  useDebugValue(`App ${!!app ? 'Connected' : 'Disconnected'}`);
+  useDebugValue(`App ${app ? 'Connected' : 'Disconnected'}`);
   return [app, firebase];
 };
 
@@ -49,8 +49,8 @@ FirebaseProvider.displayName = 'FirebaseProvider';
 
 export const useFirebase = (): FirebaseContextType => {
   const data = useContext(FirebaseContext);
-  useDebugValue(`App ${!!data[0] ? 'Connected' : 'Disconnected'}`);
+  useDebugValue(`App ${data[0] ? 'Connected' : 'Disconnected'}`);
   return data;
-}
+};
 
 export default firebase;

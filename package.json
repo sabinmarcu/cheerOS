@@ -5,9 +5,13 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@commitlint/config-lerna-scopes": "^8.3.4",
+    "@emotion/babel-plugin": "^11.0.0-next.11",
+    "@emotion/core": "^10.0.27",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.19.2",

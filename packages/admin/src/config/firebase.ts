@@ -1,8 +1,8 @@
 
+import { log } from '../utils/log';
+
 const apiKey = process.env.FIREBASE_API_KEY;
 const projectId = process.env.FIREBASE_PROJECT_ID;
-
-import { log } from './utils/log';
 
 export const config = {
   apiKey,
