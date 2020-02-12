@@ -1,4 +1,13 @@
 module.exports = {
   presets: ['@babel/preset-typescript'],
-  plugins: ['@emotion'],
+  plugins: [
+    [
+      '@emotion',
+      {
+        sourceMap: true,
+        labelFormat: '[local]',
+        cssPropOptimization: true,
+      },
+    ],
+  ],
 };

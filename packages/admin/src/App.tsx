@@ -6,7 +6,7 @@ import {
 import { FirebaseProvider } from './stores/firebase';
 import { AuthProvider } from './stores/auth';
 import { CombineContexts } from './utils/context';
-import routes from './config/routes';
+import { routes } from './config/routes';
 
 export const App: React.FC = () => (
   <Router>
@@ -17,22 +17,22 @@ export const App: React.FC = () => (
       ]}
     >
       {Object
-        .values(routes)
+        .entries(routes)
         .map(
-          ({
+          ([
             name,
-            route,
-            options,
-            component,
-          }) => (
-            <Route
-              exact
-              path={route}
-              {...options}
-              key={name}
-              component={component}
-            />
-          ),
+            {
+              route,
+              component,
+            },
+          ]) => (
+              <Route
+                exact
+                path={route}
+                key={name}
+                component={component}
+              />
+            ),
         )}
     </CombineContexts>
   </Router>
