@@ -1,3 +1,11 @@
 {
-  "eslint.enable": true
+  "eslint.enable": true,
+  "cSpell.words": [
+    "browserslist",
+    "cheeros",
+    "commitlint",
+    "firebaseapp",
+    "lastname",
+    "nohoist"
+  ]
 }

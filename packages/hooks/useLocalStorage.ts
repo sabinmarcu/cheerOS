@@ -33,7 +33,7 @@ export const logState = (
   );
 };
 
-export const useLocalStorage = (key: string, defaultValue?: any) => {
+export const useLocalStorage = (key: string, defaultValue?: any): [any, (value: any) => void] => {
   const [value, setValue] = useState(
     ((): any => {
       const val = localStorage.getItem([prefix, key].join(':'));
