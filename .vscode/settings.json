@@ -6,6 +6,9 @@
     "commitlint",
     "firebaseapp",
     "lastname",
-    "nohoist"
+    "merienda",
+    "nohoist",
+    "nowrap",
+    "webfontloader"
   ]
 }

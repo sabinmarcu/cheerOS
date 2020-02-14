@@ -46,7 +46,7 @@ export const AppNavigation: React.FC<{
   const [logout, isAuthReady] = useAdminLogout();
   const accountClick = useMemo(
     () => isLoggedIn
-      ? (isAuthReady ? (() => logout && logout()) : undefined)
+      ? (isAuthReady ? (() => logout && logout().then(() => history.push(routes.root.route))) : undefined)
       : (() => history.push(routes.login.route)),
     [history, logout, isLoggedIn, isAuthReady],
   );

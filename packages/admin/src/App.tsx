@@ -2,12 +2,14 @@ import React from 'react';
 import {
   Route,
   BrowserRouter as Router,
+  Switch,
 } from 'react-router-dom';
 import { FirebaseProvider } from '@cheeros/stores/firebase';
 import { AuthProvider } from '@cheeros/stores/auth';
 import { CombineContexts } from '@cheeros/utils/context';
-import { routes } from './config/routes';
+import { routes, errors } from './config/routes';
 import { ScreenWrapper } from './components/Screen';
+import { ErrorScreen } from './screens/Error';
 
 export const App: React.FC = () => (
   <Router>
@@ -18,24 +20,55 @@ export const App: React.FC = () => (
       ]}
     >
       <ScreenWrapper>
-        {Object
-          .entries(routes)
-          .map(
-            ([
-              name,
-              {
-                route,
-                component,
-              },
-            ]) => (
-                <Route
-                  exact
-                  path={route}
-                  key={name}
-                  component={component}
-                />
-              ),
+        <Switch>
+          {Object
+            .entries(routes)
+            .map(
+              ([
+                name,
+                {
+                  route,
+                  component,
+                },
+              ]) => (
+                  <Route
+                    exact
+                    path={route}
+                    key={name}
+                    component={component}
+                  />
+                ),
           )}
+          {Object
+            .entries(errors)
+            .map(
+              ([
+                name,
+                {
+                  route,
+                  component: Component,
+                  code,
+                  text,
+                },
+              ]) => (
+                  <Route
+                    exact
+                    path={route}
+                    key={name}
+                    render={() => <Component {...{code, text}} />}
+                  />
+                ),
+            )}
+            <Route
+              path="/"
+              render={() => (
+                <ErrorScreen
+                  code={errors['404'].code}
+                  text={errors['404'].text}
+                  />
+              )}
+            />
+        </Switch>
       </ScreenWrapper>
     </CombineContexts>
   </Router>
