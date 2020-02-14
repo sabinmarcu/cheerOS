@@ -54,9 +54,11 @@ export const useAdmin = (): [Admin | null, boolean] => {
     () => !!user,
     [user],
   );
-  useDebugValue(user
-    ? `User: ${user.email}`
-    : 'No User');
+  useDebugValue(
+    user
+      ? `User: ${user.email}`
+      : 'No User',
+  );
   return [user, hasUser];
 };
 
@@ -67,7 +69,34 @@ export const useAdminLogin = (): [Function | null, boolean] => {
     [auth],
   );
   const authFunction = useMemo(
-    () => (auth ? auth.signInWithEmailAndPassword : null),
+    () => (
+      auth
+        ? (
+          email: string,
+          password: string,
+        ): Promise<firebase.auth.UserCredential> => auth.signInWithEmailAndPassword(
+          email,
+          password,
+        )
+        : null
+    ),
+    [auth],
+  );
+  return [authFunction, hasAuth];
+};
+
+export const useAdminLogout = (): [Function | null, boolean] => {
+  const [, auth] = useContext(AuthContext);
+  const hasAuth = useMemo(
+    () => !!auth,
+    [auth],
+  );
+  const authFunction = useMemo(
+    () => (
+      auth
+        ? (): Promise<void> => auth.signOut()
+        : null
+    ),
     [auth],
   );
   return [authFunction, hasAuth];

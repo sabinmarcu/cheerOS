@@ -34,10 +34,14 @@ export const StyledToolbar = styled(
     : { opacity: 0 }
 );
 
-export const ListItemLink: React.FC<{ to: string }> = ({ children, to }) => (
-  <li>
-    <ListItem button component={(props) => <Link to={to} {...props} />}>
-      {children}
-    </ListItem>
-  </li>
-)
+export const ListItemLink: React.FC<{ to: string }> =
+  ({ children, to }) => (
+    <li>
+      <ListItem
+        component={(props) => <Link to={to} {...props} />}
+      >
+        {children}
+      </ListItem>
+    </li>
+  )
+;
