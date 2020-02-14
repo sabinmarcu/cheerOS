@@ -7,6 +7,10 @@ import React, {
   useDebugValue,
 } from 'react';
 
+import {
+  Redirect,
+} from 'react-router-dom';
+
 import firebase from 'firebase/app';
 import { log } from '@cheeros/utils/log';
 
@@ -112,3 +116,33 @@ export const AuthProvider: React.FC = ({ children }) => {
 };
 
 AuthProvider.displayName = 'AuthProvider';
+
+export type AuthGuardProps = {
+  requiresLogin?: boolean;
+  redirect?: string;
+};
+export const AuthGuard: React.FC<AuthGuardProps> = ({
+  requiresLogin = true,
+  redirect = '/',
+  children,
+}) => {
+  const [, hasUser] = useAdmin();
+  if (requiresLogin === hasUser) {
+    return <>{children}</>;
+  }
+  return <Redirect to={redirect} />;
+};
+
+
+export const withAuthGuard = ({
+  requiresLogin = true,
+  redirect = '/',
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: AuthGuardProps) => (Component: any): React.FC => (props): React.ReactElement => (
+  <AuthGuard
+    requiresLogin={requiresLogin}
+    redirect={redirect}
+  >
+    <Component {...props} />
+  </AuthGuard>
+);

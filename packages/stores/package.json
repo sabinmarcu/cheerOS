@@ -28,9 +28,10 @@
     "url": "https://github.com/sabinmarcu/cheerOS/issues"
   },
   "dependencies": {
-    "@cheeros/utils": "^1.0.0",
     "@cheeros/config": "^1.0.0",
+    "@cheeros/utils": "^1.0.0",
     "firebase": "^7.8.2",
-    "react": "^16.12.0"
+    "react": "^16.12.0",
+    "react-router-dom": "^5.1.2"
   }
 }

@@ -41,6 +41,7 @@ export const AppDrawer: React.FC<{
     <List component="nav">
       {Object
         .values(routes)
+        .filter(({ hide }) => !hide)
         .map(({ route, name }) => (
           <ListItemLink key={[route, name].join(':')} to={route}>
             <ListItemText>{name}</ListItemText>
