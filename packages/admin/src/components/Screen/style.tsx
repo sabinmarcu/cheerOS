@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import Drawer from '@material-ui/core/Drawer';
 
-const drawerWidth = 30;
+import { styles } from '../../config/constants';
+const { drawer: { width, maxWidth, animation } } = styles;
+
 export const StyledWrapper = styled(
   'div',
   { label: 'AppWrapper' },
@@ -14,30 +15,26 @@ export const StyledWrapper = styled(
   overflow: hidden;
 `;
 
-export const StyledDrawer = styled(
-  'div',
-  { label: 'Drawer' },
-)`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  & {
-    width: ${drawerWidth}vw;
-  }
-`;
-
 export const StyledContentWrapper = styled(
   'div',
   { label: 'ContentWrapper' },
-)(
+)<{ open: boolean }>(
   `
     display: flex;
     flex-flow: column nowrap;
     position: relative;
+    transition: transform ${animation};
+    width: 100%;
+    height: 100%;
+    background: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   `,
-  // ({ open }) => open && `
-  //   transform: translateX(${drawerWidth}vw);
-  // `,
+  ({ open }) => open && `
+    transform: translateX(${width}vw);
+    @media (min-width: ${maxWidth * 100 / width}px) {
+      transform: translateX(${maxWidth}px);
+    }
+  `,
 );
 
 export const StyledContent = styled(

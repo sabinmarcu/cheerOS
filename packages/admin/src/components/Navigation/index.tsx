@@ -11,11 +11,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useLocation } from 'react-router-dom';
 import { routes } from '../../config/routes';
 
+import {
+  StyledButtonWrapper,
+} from './style';
 
 export const AppNavigation: React.FC<{
-  onClick: () => void;
+  onClick: () => void,
+  open: boolean,
 }> = ({
   onClick,
+  open,
 }) => {
   const location = useLocation();
   const route = useMemo(
@@ -25,15 +30,17 @@ export const AppNavigation: React.FC<{
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={onClick}
-        >
-          <MenuIcon />
-        </IconButton>
-        {route && <Typography>{route.name}</Typography>}
+        <StyledButtonWrapper open={open}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={onClick}
+          >
+            <MenuIcon />
+          </IconButton>
+        </StyledButtonWrapper>
+        {route && <Typography variant="h5">{route.name}</Typography>}
       </Toolbar>
     </AppBar>
   );
