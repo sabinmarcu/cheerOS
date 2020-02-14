@@ -1,7 +1,11 @@
 import React, {
   useCallback,
+  useEffect,
 } from 'react';
 
+import {
+  useHistory,
+} from 'react-router-dom';
 
 import { AppNavigation } from './Navigation';
 import { AppDrawer } from './Drawer';
@@ -15,10 +19,15 @@ import {
 } from './style';
 
 export const ScreenWrapper: React.FC = ({ children }) => {
+  const history = useHistory();
   const [open, setOpen] = useLocalStorage('appLayoutDrawerOpen', true);
   const toggle = useCallback(
     () => setOpen(!open),
     [open, setOpen],
+  );
+  useEffect(
+    () => history.listen(() => setOpen(false)),
+    [history, setOpen],
   );
   return (
     <StyledWrapper>

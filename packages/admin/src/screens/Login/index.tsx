@@ -1,6 +1,14 @@
 import React, { useMemo, useCallback } from 'react';
 
 import {
+  useHistory,
+} from 'react-router-dom';
+
+import {
+  routes
+} from '../../config/routes';
+
+import {
   CenterLayout
 } from '../../components/Layout';
 
@@ -53,6 +61,7 @@ const passwordValidators: ValidatorType[] = [
 ]
 
 export const LoginScreen: React.FC = () => {
+  const history = useHistory();
   const email = useField({
     validators: emailValidators,
   });
@@ -72,7 +81,16 @@ export const LoginScreen: React.FC = () => {
     [email, password]
   );
   const [login, isLoginReady] = useAdminLogin();
-  console.log(login);
+
+  const loginHandler = useCallback(
+    () => {
+      if (login) {
+        login(email.value, password.value)
+          .then(() => history.push(routes.root.route))
+      }
+    },
+    [login, email.value, password.value, history],
+  );
   return (
     <CenterLayout>
       <StyledCard>
@@ -103,7 +121,7 @@ export const LoginScreen: React.FC = () => {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => login && login(email.value, password.value)}
+            onClick={loginHandler}
             disabled={!isValid || !isLoginReady}
           >
             Login!

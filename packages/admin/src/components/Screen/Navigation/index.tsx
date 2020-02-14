@@ -7,14 +7,16 @@ import {
   Toolbar,
   IconButton,
   Button,
-  Typography,
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import { useLocation } from 'react-router-dom';
+import {
+  useLocation,
+  useHistory
+} from 'react-router-dom';
 import { routes } from '../../../config/routes';
 
 import {
@@ -35,12 +37,20 @@ export const AppNavigation: React.FC<{
   open,
 }) => {
   const location = useLocation();
+  const history = useHistory();
   const route = useMemo(
     () => Object.values(routes).find(({ route: r }) => r === location.pathname),
     [location.pathname],
   );
   const [user, isLoggedIn] = useAdmin();
   const [logout, isAuthReady] = useAdminLogout();
+  const accountClick = useMemo(
+    () => isLoggedIn
+      ? (isAuthReady ? (() => logout && logout()) : undefined)
+      : (() => history.push(routes.login.route)),
+    [history, logout, isLoggedIn, isAuthReady],
+  );
+  console.log(accountClick);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -60,7 +70,7 @@ export const AppNavigation: React.FC<{
         <Button
           color="inherit"
           startIcon={isLoggedIn ? <PersonOutlineIcon /> : <PersonIcon />}
-          onClick={isLoggedIn && isAuthReady ? (() => logout && logout()) : undefined}
+          onClick={accountClick}
         >
           {isLoggedIn ? 'Logout' : 'Login'}
         </Button>
