@@ -1,0 +1,36 @@
+{
+  "name": "@cheeros/stores",
+  "version": "1.0.0",
+  "private": true,
+  "description": "> TODO: description",
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "homepage": "https://github.com/sabinmarcu/cheerOS#readme",
+  "license": "ISC",
+  "main": "lib/stores.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabinmarcu/cheerOS.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/sabinmarcu/cheerOS/issues"
+  },
+  "dependencies": {
+    "@cheeros/utils": "^1.0.0",
+    "@cheeros/config": "^1.0.0",
+    "firebase": "^7.8.2",
+    "react": "^16.12.0"
+  }
+}

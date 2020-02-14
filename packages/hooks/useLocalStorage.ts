@@ -1,12 +1,13 @@
-import { useState, useMemo, useEffect } from 'react';
-import { groupCollapsed, groupEnd, log } from '../utils/log';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from 'react';
+import { groupCollapsed, groupEnd, log } from '@cheeros/utils/log';
 
-export const prefix = "app";
+export const prefix = 'app';
 export const logGroup = (
   message: string,
   key: string,
   ...rest: any[]
-  ) => {
+): void => {
   groupCollapsed(`${message} %c${key}`, 'color: grey; font-size: 0.9em');
   rest.forEach((it: any) => {
     if (Array.isArray(it)) {
@@ -14,42 +15,55 @@ export const logGroup = (
     } else {
       log(it);
     }
-  })
+  });
   groupEnd();
-}
+};
+
 export const logState = (
   message: string,
   key: string,
-  value: any
-) => {
+  value: any,
+): void => {
   logGroup(
     message,
     key,
     [`Key: %c${key}`, 'color: blue; text-decoration: underline'],
     [`LocalStorage Key: %c${[prefix, key].join(':')}`, 'color: blue; text-decoration: underline'],
     ['Value:', value],
-  )
-}
+  );
+};
+
 export const useLocalStorage = (key: string, defaultValue?: any) => {
-  const [value, setValue] = useState(defaultValue);
-  useEffect(
-    () => {
+  const [value, setValue] = useState(
+    ((): any => {
       const val = localStorage.getItem([prefix, key].join(':'));
       if (val) {
         try {
           logState('⚙ LocalStorage Get', key, val);
-          setValue(JSON.parse(val));
+          return JSON.parse(val);
         } catch (e) {
           logState('❌ Could not parse LS data', key, val);
         }
+        return defaultValue;
       }
-    },
-    [key],
+      return null;
+    })(),
   );
   useEffect(
     () => {
-      logState('⚙ LocalStorage Set', key, value);
-      localStorage.setItem([prefix, key].join(':'), JSON.stringify(value));
+      let shouldUpdate = true;
+      try {
+        const existingValue = localStorage.getItem([prefix, (key)].join(':'));
+        if (existingValue && JSON.parse(existingValue) === value) {
+          shouldUpdate = false;
+        }
+      } catch (e) {
+        // Nope
+      }
+      if (shouldUpdate) {
+        logState('⚙ LocalStorage Set', key, value);
+        localStorage.setItem([prefix, key].join(':'), JSON.stringify(value));
+      }
     },
     [key, value],
   );
@@ -60,13 +74,13 @@ export const useLocalStorage = (key: string, defaultValue?: any) => {
         key: k,
         oldValue,
         newValue,
-      }: StorageEvent) => {
+      }: StorageEvent): ((() => void) | void) => {
         try {
           const [ov, nv] = [JSON.parse((oldValue as string)), JSON.parse((newValue as string))];
-          const isLocalstorage = storageArea === localStorage;
+          const isLocalStorage = storageArea === localStorage;
           const isRightKey = k === [prefix, key].join(':');
           const isNewValue = ov !== nv;
-          if (isLocalstorage && isRightKey && isNewValue) {
+          if (isLocalStorage && isRightKey && isNewValue) {
             logGroup(
               '⚙ LocalStorage Event',
               key,
@@ -80,11 +94,11 @@ export const useLocalStorage = (key: string, defaultValue?: any) => {
         }
       };
       window.addEventListener('storage', handler);
-      return () => window.removeEventListener('storage', handler);
+      return (): void => window.removeEventListener('storage', handler);
     },
-    [setValue, key, value]
-  )
+    [setValue, key, value],
+  );
   return [value, setValue];
-}
+};
 
 export default useLocalStorage;

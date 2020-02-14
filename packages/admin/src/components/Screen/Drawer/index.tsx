@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import ChevronIcon from '@material-ui/icons/ChevronRight';
 
-import routes from '../../config/routes';
+import routes from '../../../config/routes';
 
 import {
   StyledToolbar,
@@ -42,7 +42,7 @@ export const AppDrawer: React.FC<{
       {Object
         .values(routes)
         .map(({ route, name }) => (
-          <ListItemLink key={[route,name].join(':')} to={route}>
+          <ListItemLink key={[route, name].join(':')} to={route}>
             <ListItemText>{name}</ListItemText>
           </ListItemLink>
         ))}

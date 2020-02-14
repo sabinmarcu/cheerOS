@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
 
-import { styles } from '../../config/constants';
+import { styles } from '../../../config/constants';
 const { drawer: { animation } } = styles;
 
-export const StyledButtonWrapper = styled(
-  'div',
-  { label: 'ButtonWrapper '}
-)<{ open: boolean }>(
+export const StyledButtonWrapper = styled.div<{ open: boolean }>(
   {
     transition: `all ${animation}`,
     marginRight: 24,

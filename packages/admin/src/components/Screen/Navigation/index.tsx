@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { useLocation } from 'react-router-dom';
-import { routes } from '../../config/routes';
+import { routes } from '../../../config/routes';
 
 import {
   StyledButtonWrapper,

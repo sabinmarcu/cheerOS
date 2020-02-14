@@ -9,8 +9,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-import { log } from '../utils/log';
-import { config as firebaseConfig } from '../config/firebase';
+import { config as firebaseConfig } from '@cheeros/config/firebase';
+
+import { log } from '@cheeros/utils/log';
 
 if (process.env.NODE_ENV !== 'production') {
   window.firebase = firebase;

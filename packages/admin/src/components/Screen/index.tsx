@@ -3,10 +3,10 @@ import React, {
 } from 'react';
 
 
-import { AppNavigation } from '../Navigation';
-import { AppDrawer } from '../Drawer';
+import { AppNavigation } from './Navigation';
+import { AppDrawer } from './Drawer';
 
-import { useLocalStorage } from '../../hooks/useLocalstorage';
+import { useLocalStorage } from '@cheeros/hooks/useLocalStorage';
 
 import {
   StyledWrapper,

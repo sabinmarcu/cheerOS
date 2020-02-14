@@ -9,13 +9,10 @@ import {
   Link,
 } from 'react-router-dom';
 
-import { styles } from '../../config/constants';
+import { styles } from '../../../config/constants';
 const { drawer: { width, maxWidth, animation } } = styles;
 
-export const StyledDrawer = styled(
-  'div',
-  { label: 'Drawer' },
-)`
+export const StyledDrawer = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;

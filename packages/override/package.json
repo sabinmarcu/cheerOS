@@ -1,0 +1,33 @@
+{
+  "name": "@cheeros/override",
+  "private": true,
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "homepage": "https://github.com/sabinmarcu/cheerOS#readme",
+  "license": "ISC",
+  "main": "lib/override.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabinmarcu/cheerOS.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/sabinmarcu/cheerOS/issues"
+  },
+  "dependencies": {
+    "@babel/preset-typescript": "^7.8.3",
+    "cra-define-override": "^1.0.0",
+    "customize-cra": "^0.9.1",
+    "dotenv-flow": "^3.1.0"
+  }
+}

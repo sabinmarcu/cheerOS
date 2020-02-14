@@ -3,10 +3,11 @@ import {
   Route,
   BrowserRouter as Router,
 } from 'react-router-dom';
-import { FirebaseProvider } from './stores/firebase';
-import { AuthProvider } from './stores/auth';
-import { CombineContexts } from './utils/context';
+import { FirebaseProvider } from '@cheeros/stores/firebase';
+import { AuthProvider } from '@cheeros/stores/auth';
+import { CombineContexts } from '@cheeros/utils/context';
 import { routes } from './config/routes';
+import { ScreenWrapper } from './components/Screen';
 
 export const App: React.FC = () => (
   <Router>
@@ -16,24 +17,26 @@ export const App: React.FC = () => (
         AuthProvider,
       ]}
     >
-      {Object
-        .entries(routes)
-        .map(
-          ([
-            name,
-            {
-              route,
-              component,
-            },
-          ]) => (
-              <Route
-                exact
-                path={route}
-                key={name}
-                component={component}
-              />
-            ),
-        )}
+      <ScreenWrapper>
+        {Object
+          .entries(routes)
+          .map(
+            ([
+              name,
+              {
+                route,
+                component,
+              },
+            ]) => (
+                <Route
+                  exact
+                  path={route}
+                  key={name}
+                  component={component}
+                />
+              ),
+          )}
+      </ScreenWrapper>
     </CombineContexts>
   </Router>
 );

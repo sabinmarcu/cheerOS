@@ -3,10 +3,7 @@ import styled from '@emotion/styled';
 import { styles } from '../../config/constants';
 const { drawer: { width, maxWidth, animation } } = styles;
 
-export const StyledWrapper = styled(
-  'div',
-  { label: 'AppWrapper' },
-)`
+export const StyledWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
@@ -15,10 +12,7 @@ export const StyledWrapper = styled(
   overflow: hidden;
 `;
 
-export const StyledContentWrapper = styled(
-  'div',
-  { label: 'ContentWrapper' },
-)<{ open: boolean }>(
+export const StyledContentWrapper = styled.div<{ open: boolean }>(
   `
     display: flex;
     flex-flow: column nowrap;
@@ -37,10 +31,7 @@ export const StyledContentWrapper = styled(
   `,
 );
 
-export const StyledContent = styled(
-  'div',
-  { label: 'ScreenWrapper' },
-)`
+export const StyledContent = styled.div`
   flex: 1;
   overflow-x: hidden;
   overflow-y: auto;

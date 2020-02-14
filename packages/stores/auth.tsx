@@ -8,11 +8,12 @@ import React, {
 } from 'react';
 
 import firebase from 'firebase/app';
+import { log } from '@cheeros/utils/log';
+
 import {
   Admin,
-} from '../types';
+} from './types';
 
-import { log } from '../utils/log';
 import { useFirebase } from './firebase';
 
 export type AuthContextType = [(Admin | null), (firebase.auth.Auth | null)];

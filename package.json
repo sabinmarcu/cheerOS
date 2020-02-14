@@ -1,9 +1,14 @@
 {
-  "name": "root",
+  "name": "@cheeros/root",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/babel-loader"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
