@@ -47,9 +47,20 @@ export const AppNavigation: React.FC<{
   const [logout, isAuthReady] = useAdminLogout();
   const accountClick = useMemo(
     () => isLoggedIn
-      ? (isAuthReady ? (() => logout && logout().then(() => history.push(routes.root.route))) : undefined)
-      : (() => history.push(routes.login.route)),
-    [history, logout, isLoggedIn, isAuthReady],
+      ? (isAuthReady
+        ? (() => logout && logout().then(
+          () => history.push(routes.root.route, {r: window.location.pathname})
+        ))
+        : undefined
+      )
+      : (() => history.push(
+        routes.login.route,
+        {
+          r: (location.state && (location.state as { r?: string }).r)
+          || window.location.pathname
+        }
+      )),
+    [isLoggedIn, isAuthReady, logout, history, location.state],
   );
   return (
     <AppBar position="static">

@@ -1,12 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 
 import {
-  useHistory,
+  useHistory, useLocation,
 } from 'react-router-dom';
-
-import {
-  routes
-} from '../../config/routes';
 
 import {
   CenterLayout
@@ -69,7 +65,6 @@ const passwordValidators: ValidatorType[] = [
 ]
 
 export const LoginScreen: React.FC = () => {
-  const history = useHistory();
   const email = useField({
     validators: emailValidators,
   });
@@ -100,11 +95,10 @@ export const LoginScreen: React.FC = () => {
       if (login && isValid) {
         setError(null);
         login(email.value, password.value)
-          .then(() => history.push(routes.root.route))
           .catch(({ message }: { message: string }) => setError(message))
       }
     },
-    [isValid, login, email.value, password.value, history, setError],
+    [login, isValid, email.value, password.value],
   );
 
   const onEnter = useOnEnter(loginHandler);

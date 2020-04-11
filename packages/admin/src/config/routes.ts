@@ -6,9 +6,9 @@ import { ContactsCrud } from '../screens/ContactsCrud';
 
 import { PhoneContactsList } from '../screens/ContactsList';
 
-import { withAuthGuard } from '@cheeros/stores/auth';
+import { withAuthGuard, RoutesGenericType, RoutesType } from '@cheeros/stores/auth';
 
-export const errors = {
+export const errors: RoutesGenericType = {
   404: {
     name: 'Error',
     code: 404,
@@ -32,18 +32,12 @@ export const errors = {
   }
 }
 
-export const adminRoutes = {
+export const adminRoutes: RoutesGenericType = {
   root: {
     name: 'Home Screen',
     route: '/',
     hide: false,
     component: HomeScreen,
-  },
-  login: {
-    name: 'Login',
-    route: '/login',
-    hide: true,
-    component: withAuthGuard({ requiresLogin: false, redirect: errors['403'].route })(LoginScreen),
   },
   contactsCrud: {
     name: 'Contacts',
@@ -53,7 +47,7 @@ export const adminRoutes = {
   },
 };
 
-export const phoneRoutes = {
+export const phoneRoutes: RoutesGenericType = {
   contacts: {
     name: 'Contacts',
     route: '/phone/contacts',
@@ -62,9 +56,15 @@ export const phoneRoutes = {
   },
 }
 
-export const routes = {
+export const routes: RoutesType = ({
+  login: {
+    name: 'Login',
+    route: '/login',
+    hide: true,
+    component: withAuthGuard({ requiresLogin: false, redirect: errors['403'].route })(LoginScreen),
+  },
   ...phoneRoutes,
   ...adminRoutes,
-}
+} as RoutesType)
 
 export default routes;

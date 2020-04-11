@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 import {
-  Redirect,
+  useHistory, useLocation,
 } from 'react-router-dom';
 
 import firebase from 'firebase/app';
@@ -25,11 +25,28 @@ import {
 import { useFirebase } from './firebase';
 
 export type AuthContextType = [(Admin | null | undefined), (firebase.auth.Auth | null)];
+export type RouteType = {
+  route: string;
+  code?: number;
+  text?: string;
+  hide?: boolean;
+  name: string;
+  component: React.ComponentType<any>;
+}
+export type RoutesGenericType = {
+  [key: string]: RouteType;
+};
+export type RoutesType = {
+  root: RouteType;
+  login: RouteType;
+} & RoutesGenericType;
 
 export const AuthContext = createContext<AuthContextType>([null, null]);
 
-export const useAuthContext = (): AuthContextType => {
+export const useAuthContext = (routes: RoutesType): AuthContextType => {
   const [app] = useFirebase();
+  const history = useHistory();
+  const location = useLocation();
   const auth = useMemo(
     () => (app ? app.auth() : null),
     [app],
@@ -46,6 +63,16 @@ export const useAuthContext = (): AuthContextType => {
       });
     },
     [auth, setUser],
+  );
+  useEffect(
+    () => {
+      if (user && location.pathname === routes.login.route) {
+        const to = (location.state && (location.state as { r?: string }).r) || routes.root.route;
+        log('⚙ Redirecting to %s', to);
+        history.push(to);
+      }
+    },
+    [user, history, location.state],
   );
   useDebugValue([
     'Auth',
@@ -110,8 +137,8 @@ export const useAdminLogout = (): [Function | null, boolean] => {
   return [authFunction, hasAuth];
 };
 
-export const AuthProvider: React.FC = ({ children }) => {
-  const authContext = useAuthContext();
+export const AuthProvider: React.FC<RoutesType> = ({ children, routes }) => {
+  const authContext = useAuthContext(routes);
   return (
     <AuthContext.Provider value={authContext}>
       {children}
@@ -120,6 +147,23 @@ export const AuthProvider: React.FC = ({ children }) => {
 };
 
 AuthProvider.displayName = 'AuthProvider';
+
+export const PoorMansRedirect: React.FC<{
+  to: string;
+}> = ({
+  to,
+}) => {
+  const history = useHistory();
+  useEffect(
+    () => {
+      if (history) {
+        history.push(to, { r: window.location.pathname });
+      }
+    },
+    [],
+  );
+  return null;
+};
 
 export type AuthGuardProps = {
   requiresLogin?: boolean;
@@ -137,7 +181,7 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
   if (requiresLogin === hasUser) {
     return <>{children}</>;
   }
-  return <Redirect to={redirect} />;
+  return <PoorMansRedirect to={redirect} />;
 };
 
 

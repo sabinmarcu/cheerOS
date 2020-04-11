@@ -19,7 +19,7 @@ export const App: React.FC = () => (
     <CombineContexts
       contexts={[
         FirebaseProvider,
-        AuthProvider,
+        [AuthProvider, { routes }],
         [BreakpointsProvider, { breakpoints }],
       ]}
     >
@@ -67,8 +67,8 @@ export const App: React.FC = () => (
               path="/"
               render={() => (
                 <ErrorScreen
-                  code={errors['404'].code}
-                  text={errors['404'].text}
+                  code={errors['404'].code!}
+                  text={errors['404'].text!}
                   />
               )}
             />

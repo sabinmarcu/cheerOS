@@ -62,34 +62,36 @@ export const AppDrawer: React.FC<{
             </ListItem>
           }
         </List>
-        <Divider />
-        <List component="nav">
-          <ListSubheader>
-              Admin:
-          </ListSubheader>
-          {Object
-            .values(adminRoutes)
-            .filter(({ hide }) => !hide)
-            .map(({ route, name }) => (
-              <ListItemLink key={[route, name].join(':')} to={route}>
-                <ListItemText>{name}</ListItemText>
-              </ListItemLink>
-            ))}
-        </List>
-        <Divider />
-        <List component="nav">
-          <ListSubheader>
-              Phone:
-          </ListSubheader>
-          {Object
-            .values(phoneRoutes)
-            .filter(({ hide }) => !hide)
-            .map(({ route, name }) => (
-              <ListItemLink key={[route, name].join(':')} to={route}>
-                <ListItemText>{name}</ListItemText>
-              </ListItemLink>
-            ))}
-        </List>
+        {isLoggedIn && <>
+          <Divider />
+          <List component="nav">
+            <ListSubheader>
+                Admin:
+            </ListSubheader>
+            {Object
+              .values(adminRoutes)
+              .filter(({ hide }) => !hide)
+              .map(({ route, name }) => (
+                <ListItemLink key={[route, name].join(':')} to={route}>
+                  <ListItemText>{name}</ListItemText>
+                </ListItemLink>
+              ))}
+          </List>
+          <Divider />
+          <List component="nav">
+            <ListSubheader>
+                Phone:
+            </ListSubheader>
+            {Object
+              .values(phoneRoutes)
+              .filter(({ hide }) => !hide)
+              .map(({ route, name }) => (
+                <ListItemLink key={[route, name].join(':')} to={route}>
+                  <ListItemText>{name}</ListItemText>
+                </ListItemLink>
+              ))}
+          </List>
+        </>}
     </StyledDrawer>
   );
 }
