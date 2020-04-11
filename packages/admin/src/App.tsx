@@ -6,10 +6,13 @@ import {
 } from 'react-router-dom';
 import { FirebaseProvider } from '@cheeros/stores/firebase';
 import { AuthProvider } from '@cheeros/stores/auth';
+import { BreakpointsProvider } from '@cheeros/hooks/useBreakpoints';
 import { CombineContexts } from '@cheeros/utils/context';
 import { routes, phoneRoutes, errors } from './config/routes';
 import { ScreenWrapper } from './components/Screen';
 import { ErrorScreen } from './screens/Error';
+
+import { breakpoints } from './config/constants';
 
 const allRoutes = {...routes, ...phoneRoutes};
 export const App: React.FC = () => (
@@ -18,6 +21,7 @@ export const App: React.FC = () => (
       contexts={[
         FirebaseProvider,
         AuthProvider,
+        [BreakpointsProvider, { breakpoints }],
       ]}
     >
       <ScreenWrapper>

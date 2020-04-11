@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 
 import { styles } from '../../../config/constants';
+
 const { drawer: { width, maxWidth, animation } } = styles;
 
 export const StyledDrawer = styled.div`
