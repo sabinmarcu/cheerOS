@@ -11,14 +11,20 @@ export const Wrapper = styled.section`
   flex-flow: column nowrap;
 `;
 
-export const PhonePickerWrapper = styled.article`
-  max-width: 500px;
-  margin: 0 auto;
-`;
-
-export const Phone = styled.article<{
+type SizeParam = {
   size: { width: number, height: number }
-}>(
+}
+export const PhonePickerWrapper = styled.article<SizeParam>(
+    `
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
+  ({ size }) => ({ width: size.width }),
+);
+
+export const Phone = styled.article<SizeParam>(
   phoneSize,
   `
     box-shadow: 0 0 5px 2px  rgba(0, 0, 0, 0.2);

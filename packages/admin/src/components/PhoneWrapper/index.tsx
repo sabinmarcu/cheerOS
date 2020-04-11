@@ -19,7 +19,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Button,
 } from '@material-ui/core';
+
+import CropPortrait from '@material-ui/icons/CropPortrait';
+import CropLandscape from '@material-ui/icons/CropLandscape';
 
 const inputId = 'device-select';
 const deviceNames = Object.keys(devices);
@@ -36,13 +40,27 @@ export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{
       },
       [setDevice]
     );
+    const [flipped, setFlipped] = useState(false);
+    const flipHandler = useCallback(
+      () => setFlipped(f => !f),
+      [setFlipped],
+    );
     const deviceSize = useMemo(
-      () => devices[device],
-      [device],
+      () => {
+        const size = devices[device]
+        if (flipped) {
+          return {
+            width: size.height,
+            height: size.width,
+          }
+        }
+        return size;
+      },
+      [device, flipped],
     );
     return (
       <Wrapper>
-        <PhonePickerWrapper>
+        <PhonePickerWrapper size={deviceSize}>
           <FormControl>
             <InputLabel id={inputId}>Device</InputLabel>
             <Select
@@ -56,6 +74,13 @@ export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{
               ))}
             </Select>
           </FormControl>
+          <Button
+            onClick={flipHandler}
+            variant="contained"
+            endIcon={flipped ? <CropPortrait /> : <CropLandscape />}
+          >
+            Orientation:
+          </Button>
         </PhonePickerWrapper>
         <Phone ref={ref} size={deviceSize}>
           {children}
