@@ -3,6 +3,8 @@ import { LoginScreen } from '../screens/Login';
 import { TestScreen } from '../screens/TestLogin';
 import { ErrorScreen } from'../screens/Error';
 
+import { ContactsCrud } from '../screens/ContactsCrud';
+
 import { PhoneContactsList } from '../screens/ContactsList';
 
 import { withAuthGuard } from '@cheeros/stores/auth';
@@ -44,18 +46,22 @@ export const routes = {
     hide: true,
     component: withAuthGuard({ requiresLogin: false, redirect: errors['403'].route })(LoginScreen),
   },
-  test: {
-    name: 'Test Screen',
-    route: '/test',
+  contactsCrud: {
+    name: 'Contacts',
+    route: '/crud/contacts',
     hide: false,
-    component: withAuthGuard({ redirect: errors['403'].route })(TestScreen),
+    component: withAuthGuard({ redirect: errors['403'].route })(ContactsCrud),
   },
-  phoneContacts: {
-    name: 'Phone Contacts',
+};
+
+export const phoneRoutes = {
+  contacts: {
+    name: 'Contacts',
     route: '/phone/contacts',
     hide: false,
     component: withAuthGuard({ redirect: errors['403'].route })(PhoneContactsList),
   },
-};
+
+}
 
 export default routes;

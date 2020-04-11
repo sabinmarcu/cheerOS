@@ -5,11 +5,13 @@ import {
   IconButton,
   Typography,
   ListItemText,
+  ListSubheader,
   List,
+  Divider,
 } from '@material-ui/core';
 import ChevronIcon from '@material-ui/icons/ChevronRight';
 
-import routes from '../../../config/routes';
+import {routes, phoneRoutes} from '../../../config/routes';
 
 import {
   StyledToolbar,
@@ -37,17 +39,34 @@ export const AppDrawer: React.FC<{
           <ChevronIcon />
         </IconButton>
       </StyledToolbar>
-    </AppBar>
-    <List component="nav">
-      {Object
-        .values(routes)
-        .filter(({ hide }) => !hide)
-        .map(({ route, name }) => (
-          <ListItemLink key={[route, name].join(':')} to={route}>
-            <ListItemText>{name}</ListItemText>
-          </ListItemLink>
-        ))}
-    </List>
+      </AppBar>
+      <List component="nav">
+        <ListSubheader>
+            Admin:
+        </ListSubheader>
+        {Object
+          .values(routes)
+          .filter(({ hide }) => !hide)
+          .map(({ route, name }) => (
+            <ListItemLink key={[route, name].join(':')} to={route}>
+              <ListItemText>{name}</ListItemText>
+            </ListItemLink>
+          ))}
+      </List>
+      <Divider />
+      <List component="nav">
+        <ListSubheader>
+            Phone:
+        </ListSubheader>
+        {Object
+          .values(phoneRoutes)
+          .filter(({ hide }) => !hide)
+          .map(({ route, name }) => (
+            <ListItemLink key={[route, name].join(':')} to={route}>
+              <ListItemText>{name}</ListItemText>
+            </ListItemLink>
+          ))}
+      </List>
   </StyledDrawer>
 );
 

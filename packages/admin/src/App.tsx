@@ -7,10 +7,11 @@ import {
 import { FirebaseProvider } from '@cheeros/stores/firebase';
 import { AuthProvider } from '@cheeros/stores/auth';
 import { CombineContexts } from '@cheeros/utils/context';
-import { routes, errors } from './config/routes';
+import { routes, phoneRoutes, errors } from './config/routes';
 import { ScreenWrapper } from './components/Screen';
 import { ErrorScreen } from './screens/Error';
 
+const allRoutes = {...routes, ...phoneRoutes};
 export const App: React.FC = () => (
   <Router>
     <CombineContexts
@@ -22,7 +23,7 @@ export const App: React.FC = () => (
       <ScreenWrapper>
         <Switch>
           {Object
-            .entries(routes)
+            .entries(allRoutes)
             .map(
               ([
                 name,

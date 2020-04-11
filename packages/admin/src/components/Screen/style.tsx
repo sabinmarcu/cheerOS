@@ -22,6 +22,7 @@ export const StyledContentWrapper = styled.div<{ open: boolean }>(
     height: 100%;
     background: white;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    z-index: 2;
   `,
   ({ open }) => open && `
     transform: translateX(${width}vw);
