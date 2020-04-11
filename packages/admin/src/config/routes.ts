@@ -1,6 +1,5 @@
 import { HomeScreen } from '../screens/Home';
 import { LoginScreen } from '../screens/Login';
-import { TestScreen } from '../screens/TestLogin';
 import { ErrorScreen } from'../screens/Error';
 
 import { ContactsCrud } from '../screens/ContactsCrud';

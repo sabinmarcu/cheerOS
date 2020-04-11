@@ -7,6 +7,8 @@ import {
   Toolbar,
   IconButton,
   Button,
+  Tooltip,
+  Typography,
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -65,13 +67,20 @@ export const AppNavigation: React.FC<{
         <StyledTypography variant="h5">{[
           route ? route.name : undefined
         ].join(' ')}</StyledTypography>
-        <Button
-          color="inherit"
-          startIcon={isLoggedIn ? <PersonOutlineIcon /> : <PersonIcon />}
-          onClick={accountClick}
+        <Tooltip
+          disableHoverListener={!isLoggedIn}
+          disableTouchListener={!isLoggedIn}
+          disableFocusListener={!isLoggedIn}
+          title={isLoggedIn && user && user.email}
         >
-          {isLoggedIn ? 'Logout' : 'Login'}
-        </Button>
+          <Button
+            color="inherit"
+            startIcon={isLoggedIn ? <PersonOutlineIcon /> : <PersonIcon />}
+            onClick={accountClick}
+          >
+            {isLoggedIn ? 'Logout' : 'Login'}
+          </Button>
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );
