@@ -37,6 +37,10 @@ import {
   useAdminLogin,
 } from '@cheeros/stores';
 
+import {
+  useOnEnter,
+} from '@cheeros/hooks/useOnEnter';
+
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const minLengthValidator = (len: number): ValidatorType =>
   (value) => {
@@ -93,15 +97,18 @@ export const LoginScreen: React.FC = () => {
 
   const loginHandler = useCallback(
     () => {
-      if (login) {
+      if (login && isValid) {
         setError(null);
         login(email.value, password.value)
           .then(() => history.push(routes.root.route))
           .catch(({ message }: { message: string }) => setError(message))
       }
     },
-    [login, email.value, password.value, history, setError],
+    [isValid, login, email.value, password.value, history, setError],
   );
+
+  const onEnter = useOnEnter(loginHandler);
+
   return (
     <>
       <CenterLayout>
@@ -115,6 +122,7 @@ export const LoginScreen: React.FC = () => {
               error={email.isDirty && !email.isValid}
               helperText={email.isDirty && email.errors.length > 0 ? email.errors[0] : undefined}
               onChange={email.handler}
+              {...onEnter}
               placeholder="leroy@jenkins.com"
               type="email"
             />
@@ -125,6 +133,7 @@ export const LoginScreen: React.FC = () => {
               error={password.isDirty && !password.isValid}
               helperText={password.isDirty && password.errors.length > 0 ? password.errors[0] : undefined}
               onChange={password.handler}
+              {...onEnter}
               placeholder="test1234"
               type="password"
             />
