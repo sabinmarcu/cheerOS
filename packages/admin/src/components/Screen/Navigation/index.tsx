@@ -14,6 +14,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
+import { Localized } from '@fluent/react';
+
 import {
   useLocation,
   useHistory
@@ -74,9 +76,12 @@ export const AppNavigation: React.FC<{
             <MenuIcon />
           </IconButton>
         </StyledButtonWrapper>
-        <StyledTypography variant="h5">{[
-          route ? route.name : undefined
-        ].join(' ')}</StyledTypography>
+        <StyledTypography variant="h5">
+          {route
+            ? <Localized id={`${route.translationId}`}>{route.name}</Localized>
+            : undefined
+          }
+        </StyledTypography>
         <Tooltip
           title={isLoggedIn && user ? user.email : ''}
         >
@@ -85,7 +90,7 @@ export const AppNavigation: React.FC<{
             startIcon={isLoggedIn ? <PersonOutlineIcon /> : <PersonIcon />}
             onClick={accountClick}
           >
-            {isLoggedIn ? 'Logout' : 'Login'}
+            <Localized id="login-action" vars={{ isLoggedIn: `${isLoggedIn}` }} />
           </Button>
         </Tooltip>
       </Toolbar>

@@ -7,6 +7,7 @@ import React, {
 
 import devices from 'device-size';
 import { useLocalStorage } from '@cheeros/hooks/useLocalStorage';
+import { Localized } from '@fluent/react';
 
 import {
   Wrapper,
@@ -65,7 +66,7 @@ export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{
       <Wrapper>
         <PhonePickerWrapper size={deviceSize}>
           <FormControl>
-            <InputLabel id={inputId}>Device</InputLabel>
+            <InputLabel id={inputId}><Localized id='device' /></InputLabel>
             <Select
               labelId={inputId}
               value={device}
@@ -81,7 +82,7 @@ export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{
             onClick={flipHandler}
             endIcon={!flipped ? <CropPortrait /> : <CropLandscape />}
           >
-            Orientation:
+            <Localized id='orientation' />:
           </Button>
         </PhonePickerWrapper>
         <Phone ref={ref} size={deviceSize}>

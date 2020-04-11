@@ -1,0 +1,39 @@
+login-action = {$isLoggedIn ->
+  [true] Deautentificare
+  *[other] Autentificare
+}
+
+logged-in = {$isLoggedIn ->
+  [true] Autentificat ca si:
+  *[other] Fara autentificare
+}
+
+login-validation =
+  Datele introduse sunt {$error ->
+    [short] prea scurte
+    [long] prea lungi
+    [invalid] invalide
+    *[other] dubioase
+  }
+
+login-cta = Autentificare
+reset-cta = Resetare Date
+
+device = Dispozitiv
+orientation = Orientare
+
+contacts = Contacte
+
+language = Limba
+sections = Secțiuni
+admin = Administratie
+device = Dispozitiv
+
+home-screen = Acasa
+crud-contacts-screen = Contacte
+phone-contacts-screen = Contacte
+login-screen = Autentificare
+
+error-404 = Aceasta pagina nu exista!
+error-403 = Pagina este interzisa!
+error-418 = Sunt un ceainic!

@@ -31,6 +31,7 @@ export type RouteType = {
   text?: string;
   hide?: boolean;
   name: string;
+  translationId?: string;
   component: React.ComponentType<any>;
 }
 export type RoutesGenericType = {
@@ -137,7 +138,7 @@ export const useAdminLogout = (): [Function | null, boolean] => {
   return [authFunction, hasAuth];
 };
 
-export const AuthProvider: React.FC<RoutesType> = ({ children, routes }) => {
+export const AuthProvider: React.FC<{ routes: RoutesType }> = ({ children, routes }) => {
   const authContext = useAuthContext(routes);
   return (
     <AuthContext.Provider value={authContext}>

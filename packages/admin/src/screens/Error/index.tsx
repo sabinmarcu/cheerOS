@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {Localized} from '@fluent/react';
+
 import {
   CenterLayout
 } from '../../components/Layout';
@@ -11,15 +13,17 @@ import {
 
 export const ErrorScreen: React.FC<{
   code: number,
-  text: string
+  translationId: string
 }> = ({
   code,
-  text,
+  translationId,
 }) => (
   <CenterLayout>
     <StyledWrapper>
       <StyledTypography variant="h1">{code}</StyledTypography>
-      <StyledTypography variant="h5">{text}</StyledTypography>
+      <StyledTypography variant="h5">
+        <Localized id={`${translationId}`} />
+      </StyledTypography>
     </StyledWrapper>
   </CenterLayout>
 )

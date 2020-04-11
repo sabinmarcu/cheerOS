@@ -1,0 +1,42 @@
+login-action =
+  {$isLoggedIn ->
+    [true] Logout
+    *[other] Login
+  }
+
+logged-in =
+  {$isLoggedIn ->
+    [true] Logged in as:
+    *[other] Not logged in
+  }
+
+login-validation =
+  Input is {$error ->
+    [short] too short
+    [long] too long
+    [invalid] invalid
+    *[other] just plain weird
+  }
+
+
+login-cta = Login
+reset-cta = Reset
+
+device = Device
+orientation = Orientation
+
+contacts = Contacts
+
+language = Language
+sections = Sections
+admin = Admin
+device = Device
+
+home-screen = Home
+crud-contacts-screen = Contacts
+phone-contacts-screen = Contacts
+login-screen = Login
+
+error-404 = This page doesn't exist!
+error-403 = You're not allowed to view this page!
+error-418 = I'm a teapot!

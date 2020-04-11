@@ -4,15 +4,27 @@ import {
   BrowserRouter as Router,
   Switch,
 } from 'react-router-dom';
+
 import { FirebaseProvider } from '@cheeros/stores/firebase';
 import { AuthProvider } from '@cheeros/stores/auth';
 import { BreakpointsProvider } from '@cheeros/hooks/useBreakpoints';
+import { AppLocalizationProvider } from '@cheeros/hooks/useLocalization';
 import { CombineContexts } from '@cheeros/utils/context';
 import { routes, errors } from './config/routes';
 import { ScreenWrapper } from './components/Screen';
 import { ErrorScreen } from './screens/Error';
 
 import { breakpoints } from './config/constants';
+
+const ctx = require.context('./l10n');
+const ctxKeys = ctx.keys();
+const flcs = ctxKeys.reduce(
+  (prev, it) => ({
+    ...prev,
+    [it.match(/\/([^.]+)[^\/]+$/)![1]]: ctx(it),
+  }),
+  {},
+);
 
 export const App: React.FC = () => (
   <Router>
@@ -21,6 +33,7 @@ export const App: React.FC = () => (
         FirebaseProvider,
         [AuthProvider, { routes }],
         [BreakpointsProvider, { breakpoints }],
+        [AppLocalizationProvider, { locales: flcs, defaultLocale: 'ro' }],
       ]}
     >
       <ScreenWrapper>
@@ -52,14 +65,14 @@ export const App: React.FC = () => (
                   route,
                   component: Component,
                   code,
-                  text,
+                  translationId,
                 },
               ]) => (
                   <Route
                     exact
                     path={route}
                     key={name}
-                    render={() => <Component {...{code, text}} />}
+                    render={() => <Component {...{code, translationId}} />}
                   />
                 ),
             )}
@@ -68,7 +81,7 @@ export const App: React.FC = () => (
               render={() => (
                 <ErrorScreen
                   code={errors['404'].code!}
-                  text={errors['404'].text!}
+                  translationId={errors['404'].translationId!}
                   />
               )}
             />

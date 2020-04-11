@@ -4,7 +4,7 @@ import React, {
   useEffect,
 } from 'react';
 
-import { Search } from '../Search';
+import { Localized } from '@fluent/react';
 
 import {
   Wrapper,
@@ -34,7 +34,7 @@ export const Header: React.FC<{ parent: React.RefObject<HTMLDivElement> }> = ({
   )
   return (
     <Wrapper full={isFull}>
-      <Heading full={isFull}>Contacts</Heading>
+      <Heading full={isFull}><Localized id='contacts' /></Heading>
     </Wrapper>
   );
 }

@@ -24,6 +24,11 @@ export const StyledDrawer = withBreakpoints(
       width: ${width}vw;
       max-width: ${maxWidth}px;
       background: white;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      z-index: 0;
     `,
     ({ isMobile }) => isMobile && `
       position: fixed;
@@ -40,6 +45,12 @@ export const StyledDrawer = withBreakpoints(
       )
   )
 );
+
+export const Bottom = styled.div`
+  flex: 1;
+  display: flex;
+  flex-flow: column-reverse;
+`;
 
 export const StyledToolbar = styled(
     Toolbar,

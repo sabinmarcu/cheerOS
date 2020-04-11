@@ -12,21 +12,21 @@ export const errors: RoutesGenericType = {
   404: {
     name: 'Error',
     code: 404,
-    text: 'This page doesn\'t exist!',
+    translationId: 'error-404',
     route: '/404',
     component: ErrorScreen,
   },
   403: {
     name: 'Error',
     code: 403,
-    text: 'You\'re not allowed to view this page!',
+    translationId: 'error-403',
     route: '/403',
     component: ErrorScreen,
   },
   418: {
     name: 'Error',
     code: 418,
-    text: 'I\'m a teapot!',
+    translationId: 'error-418',
     route: '/418',
     component: ErrorScreen,
   }
@@ -37,12 +37,14 @@ export const adminRoutes: RoutesGenericType = {
     name: 'Home Screen',
     route: '/',
     hide: false,
+    translationId: 'home-screen',
     component: HomeScreen,
   },
   contactsCrud: {
     name: 'Contacts',
     route: '/crud/contacts',
     hide: false,
+    translationId: 'crud-contacts-screen',
     component: withAuthGuard({ redirect: errors['403'].route })(ContactsCrud),
   },
 };
@@ -52,6 +54,7 @@ export const phoneRoutes: RoutesGenericType = {
     name: 'Contacts',
     route: '/phone/contacts',
     hide: false,
+    translationId: 'phone-contacts-screen',
     component: withAuthGuard({ redirect: errors['403'].route })(PhoneContactsList),
   },
 }
@@ -61,6 +64,7 @@ export const routes: RoutesType = ({
     name: 'Login',
     route: '/login',
     hide: true,
+    translationId: 'login-screen',
     component: withAuthGuard({ requiresLogin: false, redirect: errors['403'].route })(LoginScreen),
   },
   ...phoneRoutes,
