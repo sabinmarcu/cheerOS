@@ -15,12 +15,16 @@ import firebase from 'firebase/app';
 import { log } from '@cheeros/utils/log';
 
 import {
+  CircularProgress,
+} from '@material-ui/core';
+import {
   Admin,
 } from './types';
 
+
 import { useFirebase } from './firebase';
 
-export type AuthContextType = [(Admin | null), (firebase.auth.Auth | null)];
+export type AuthContextType = [(Admin | null | undefined), (firebase.auth.Auth | null)];
 
 export const AuthContext = createContext<AuthContextType>([null, null]);
 
@@ -30,7 +34,7 @@ export const useAuthContext = (): AuthContextType => {
     () => (app ? app.auth() : null),
     [app],
   );
-  const [user, setUser] = useState<Admin | null>(null);
+  const [user, setUser] = useState<Admin | null | undefined>(undefined);
   useEffect(
     () => {
       if (!auth) {
@@ -52,7 +56,7 @@ export const useAuthContext = (): AuthContextType => {
   return [user, auth];
 };
 
-export const useAdmin = (): [Admin | null, boolean] => {
+export const useAdmin = (): [Admin | null | undefined, boolean] => {
   const [user] = useContext(AuthContext);
   const hasUser = useMemo(
     () => !!user,
@@ -126,7 +130,10 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
   redirect = '/',
   children,
 }) => {
-  const [, hasUser] = useAdmin();
+  const [user, hasUser] = useAdmin();
+  if (typeof user === 'undefined') {
+    return <CircularProgress style={{ width: 100, height: 100 }} />;
+  }
   if (requiresLogin === hasUser) {
     return <>{children}</>;
   }

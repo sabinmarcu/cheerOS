@@ -54,8 +54,7 @@ export const routes = {
     name: 'Phone Contacts',
     route: '/phone/contacts',
     hide: false,
-    component: PhoneContactsList
-    // component: withAuthGuard({ redirect: errors['403'].route })(PhoneContactsList),
+    component: withAuthGuard({ redirect: errors['403'].route })(PhoneContactsList),
   },
 };
 

@@ -80,8 +80,7 @@ export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{
           </FormControl>
           <Button
             onClick={flipHandler}
-            variant="contained"
-            endIcon={flipped ? <CropPortrait /> : <CropLandscape />}
+            endIcon={!flipped ? <CropPortrait /> : <CropLandscape />}
           >
             Orientation:
           </Button>

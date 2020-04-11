@@ -36,4 +36,7 @@ export const StyledContent = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

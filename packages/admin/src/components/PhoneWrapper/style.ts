@@ -1,5 +1,12 @@
 import styled from '@emotion/styled';
 import { phoneSize } from '../../config/constants';
+import { transition } from '@cheeros/utils/style';
+
+console.log(
+  transition({
+    duration: .3,
+    props: ['width', 'height']
+  }));
 
 export const Wrapper = styled.section`
   width: 100%;
@@ -33,5 +40,9 @@ export const Phone = styled.article<SizeParam>(
     overflow: hidden;
     overflow-y: auto;
   `,
+  transition({
+    duration: .3,
+    props: ['width', 'height']
+  }),
   ({ size }) => size,
 );
