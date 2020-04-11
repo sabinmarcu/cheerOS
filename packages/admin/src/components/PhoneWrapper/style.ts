@@ -21,6 +21,12 @@ export const Wrapper = styled.section`
 type SizeParam = {
   size: { width: number, height: number }
 }
+const anim =
+  transition({
+    duration: .3,
+    props: ['width', 'height']
+  })
+;
 export const PhonePickerWrapper = styled.article<SizeParam>(
     `
     margin: 0 auto;
@@ -28,6 +34,7 @@ export const PhonePickerWrapper = styled.article<SizeParam>(
     align-items: center;
     justify-content: space-between;
   `,
+  anim,
   ({ size }) => ({ width: size.width }),
 );
 
@@ -40,9 +47,6 @@ export const Phone = styled.article<SizeParam>(
     overflow: hidden;
     overflow-y: auto;
   `,
-  transition({
-    duration: .3,
-    props: ['width', 'height']
-  }),
+  anim,
   ({ size }) => size,
 );
