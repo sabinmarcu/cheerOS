@@ -4,14 +4,19 @@ import {
   AppBar,
   IconButton,
   Typography,
+  List,
+  ListItem,
   ListItemText,
   ListSubheader,
-  List,
   Divider,
 } from '@material-ui/core';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { useIsMobile } from '@cheeros/hooks/useBreakpoints';
+
+import {
+  useAdmin,
+} from '@cheeros/stores/auth';
 
 import {adminRoutes, phoneRoutes} from '../../../config/routes';
 
@@ -29,6 +34,7 @@ export const AppDrawer: React.FC<{
   open,
 }) => {
   const isMobile = useIsMobile();
+  const [user, isLoggedIn] = useAdmin();
   return (
     <StyledDrawer open={open}>
       <AppBar position="static" color="default">
@@ -44,6 +50,19 @@ export const AppDrawer: React.FC<{
           </IconButton>
         </StyledToolbar>
         </AppBar>
+        <List component="nav">
+          <ListSubheader>
+            {isLoggedIn ? 'Logged in as:' : 'Not logged in'}
+          </ListSubheader>
+          {isLoggedIn && user &&
+            <ListItem>
+              <ListItemText>
+                {user.email}
+              </ListItemText>
+            </ListItem>
+          }
+        </List>
+        <Divider />
         <List component="nav">
           <ListSubheader>
               Admin:

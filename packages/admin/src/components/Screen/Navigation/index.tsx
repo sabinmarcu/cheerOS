@@ -8,7 +8,6 @@ import {
   IconButton,
   Button,
   Tooltip,
-  Typography,
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
