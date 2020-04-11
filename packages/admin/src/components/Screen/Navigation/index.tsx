@@ -67,10 +67,7 @@ export const AppNavigation: React.FC<{
           route ? route.name : undefined
         ].join(' ')}</StyledTypography>
         <Tooltip
-          disableHoverListener={!isLoggedIn}
-          disableTouchListener={!isLoggedIn}
-          disableFocusListener={!isLoggedIn}
-          title={isLoggedIn && user && user.email}
+          title={isLoggedIn && user ? user.email : ''}
         >
           <Button
             color="inherit"
