@@ -4,3 +4,11 @@ export type Admin = {
   lastname?: string;
   avatar?: string;
 }
+
+export type Contact = {
+  username: string;
+  name: string;
+  avatar?: string;
+  cover?: string;
+  phone?: string;
+}

@@ -1,11 +1,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { override, addBabelPlugin } = require('customize-cra');
+const { override, addBabelPlugin, addWebpackPlugin } = require('customize-cra');
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv-flow');
 const { overrideProcessEnv } = require('cra-define-override');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = (dirname) => {
   const dotEnvFiles = [
@@ -20,6 +21,7 @@ module.exports = (dirname) => {
   const vars = dotenv.load(dotEnvFiles).parsed;
 
   return override(
+    addWebpackPlugin(new DashboardPlugin()),
     addBabelPlugin('@emotion/babel-plugin'),
     overrideProcessEnv(
       Object.entries(vars).reduce(

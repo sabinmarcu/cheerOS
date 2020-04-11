@@ -5,3 +5,8 @@ export const styles = {
     animation: '.5s ease-out'
   },
 };
+
+export const phoneSize = {
+  width: 350,
+  height: 710,
+}
