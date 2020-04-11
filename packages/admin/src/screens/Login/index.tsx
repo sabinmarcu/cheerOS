@@ -122,6 +122,7 @@ export const LoginScreen: React.FC = () => {
               error={email.isDirty && !email.isValid}
               helperText={email.isDirty && email.errors.length > 0 ? email.errors[0] : undefined}
               onChange={email.handler}
+              inputProps={{ tabindex: 1 }}
               {...onEnter}
               placeholder="leroy@jenkins.com"
               type="email"
@@ -133,6 +134,7 @@ export const LoginScreen: React.FC = () => {
               error={password.isDirty && !password.isValid}
               helperText={password.isDirty && password.errors.length > 0 ? password.errors[0] : undefined}
               onChange={password.handler}
+              inputProps={{ tabindex: 2 }}
               {...onEnter}
               placeholder="test1234"
               type="password"
