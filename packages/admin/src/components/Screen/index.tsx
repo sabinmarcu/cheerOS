@@ -31,9 +31,9 @@ export const ScreenWrapper: React.FC = ({ children }) => {
   );
   return (
     <StyledWrapper>
-      <AppDrawer onClick={toggle} open={open} />
-      <StyledContentWrapper open={open}>
-        <AppNavigation onClick={toggle} open={open} />
+      <AppDrawer onClick={toggle} open={!!open} />
+      <StyledContentWrapper open={!!open}>
+        <AppNavigation onClick={toggle} open={!!open} />
         <StyledContent>
           {children}
         </StyledContent>
