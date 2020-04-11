@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import devices from 'device-size';
+import { useLocalStorage } from '@cheeros/hooks/useLocalStorage';
 
 import {
   Wrapper,
@@ -30,7 +31,7 @@ const deviceNames = Object.keys(devices);
 const defaultDevice = deviceNames[0];
 export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{}>>(
   ({ children }, ref) => {
-    const [device, setDevice] = useState(defaultDevice);
+    const [device, setDevice] = useLocalStorage('deviceSize', defaultDevice);
     const onChange = useCallback(
       (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
         const value = (event.target.value as string);
@@ -40,13 +41,16 @@ export const PhoneWrapper = forwardRef<HTMLDivElement, React.PropsWithChildren<{
       },
       [setDevice]
     );
-    const [flipped, setFlipped] = useState(false);
+    const [flipped, setFlipped] = useLocalStorage<boolean>('deviceFlip', false);
     const flipHandler = useCallback(
       () => setFlipped(f => !f),
       [setFlipped],
     );
     const deviceSize = useMemo(
       () => {
+        if (!device) {
+          return devices[defaultDevice];
+        }
         const size = devices[device]
         if (flipped) {
           return {

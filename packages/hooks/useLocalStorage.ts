@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react';
+import {
+  useState, useEffect, SetStateAction, Dispatch,
+} from 'react';
 import { groupCollapsed, groupEnd, log } from '@cheeros/utils/log';
 
 export const prefix = 'app';
@@ -33,9 +35,12 @@ export const logState = (
   );
 };
 
-export const useLocalStorage = (key: string, defaultValue?: any): [any, (value: any) => void] => {
+export const useLocalStorage = <T>(
+  key: string,
+  defaultValue?: T,
+): [T | undefined, Dispatch<SetStateAction<T | undefined>>] => {
   const [value, setValue] = useState(
-    ((): any => {
+    ((): T | undefined => {
       const val = localStorage.getItem([prefix, key].join(':'));
       if (val) {
         try {
@@ -46,7 +51,7 @@ export const useLocalStorage = (key: string, defaultValue?: any): [any, (value: 
         }
         return defaultValue;
       }
-      return null;
+      return defaultValue;
     })(),
   );
   useEffect(
