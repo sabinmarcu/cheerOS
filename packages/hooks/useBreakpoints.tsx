@@ -87,7 +87,6 @@ export const useOrientation = (): Orientation => {
   };
 };
 
-
 const getSize = (): Viewport => ({
   width: window.innerWidth,
   height: window.innerHeight,
@@ -231,6 +230,23 @@ export const useBreakpoints = (breakpoints: BreakpointConfig): Breakpoints => {
     isLarge,
   };
 };
+
+export function withBreakpoints<T, K = Omit<T, keyof Breakpoints>>(
+  Comp: React.ComponentType<T>,
+): React.FC<K> {
+  return (props: K): React.ReactElement<T> => {
+    const data: Breakpoints = useContext(BreakpointContext);
+    const fullProps = ([
+      ...Object.entries(props),
+      ...Object.entries(data),
+    ]
+      .reduce(
+        (prev, [key, value]) => ({ ...prev, [key]: value }),
+        {},
+      ) as T);
+    return (<Comp {...fullProps} />);
+  };
+}
 
 export const BreakpointsProviderPartial: React.FC<{
   breakpoints: BreakpointConfig;

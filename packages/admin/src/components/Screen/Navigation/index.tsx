@@ -50,7 +50,6 @@ export const AppNavigation: React.FC<{
       : (() => history.push(routes.login.route)),
     [history, logout, isLoggedIn, isAuthReady],
   );
-  console.log(accountClick);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -64,7 +63,6 @@ export const AppNavigation: React.FC<{
           </IconButton>
         </StyledButtonWrapper>
         <StyledTypography variant="h5">{[
-          isLoggedIn && user ? `${user.email}:` : undefined,
           route ? route.name : undefined
         ].join(' ')}</StyledTypography>
         <Button

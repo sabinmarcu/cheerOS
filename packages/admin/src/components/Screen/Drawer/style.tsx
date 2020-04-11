@@ -10,20 +10,40 @@ import {
 } from 'react-router-dom';
 
 import { styles } from '../../../config/constants';
+import { withBreakpoints, Breakpoints } from '@cheeros/hooks/useBreakpoints';
 
 const { drawer: { width, maxWidth, animation } } = styles;
 
-export const StyledDrawer = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: ${width}vw;
-  max-width: ${maxWidth}px;
-`;
+export const StyledDrawer = withBreakpoints(
+  styled.div<{ open: boolean } & Breakpoints>(
+    `
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: ${width}vw;
+      max-width: ${maxWidth}px;
+      background: white;
+    `,
+    ({ isMobile }) => isMobile && `
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      max-width: initial;
+      z-index: 100;
+      transition: left ${animation};
+    `,
+    ({ open, isMobile }) => isMobile &&
+      (open
+        ? { left: 0 }
+        : { left: '-100vw' }
+      )
+  )
+);
 
 export const StyledToolbar = styled(
-  Toolbar,
-)<{ open: boolean }>(
+    Toolbar,
+  )<{ open: boolean }>(
   `
     transition: opacity ${animation};
     && {
@@ -33,6 +53,7 @@ export const StyledToolbar = styled(
   ({ open }) => open
     ? { opacity: 1 }
     : { opacity: 0 }
+  ,
 );
 
 export const StyledLink = styled(Link)`

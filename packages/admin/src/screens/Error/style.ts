@@ -13,6 +13,8 @@ export const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 
 export const StyledTypography = styled(Typography)`

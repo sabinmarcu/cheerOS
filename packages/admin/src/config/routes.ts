@@ -33,7 +33,7 @@ export const errors = {
   }
 }
 
-export const routes = {
+export const adminRoutes = {
   root: {
     name: 'Home Screen',
     route: '/',
@@ -61,7 +61,11 @@ export const phoneRoutes = {
     hide: false,
     component: withAuthGuard({ redirect: errors['403'].route })(PhoneContactsList),
   },
+}
 
+export const routes = {
+  ...phoneRoutes,
+  ...adminRoutes,
 }
 
 export default routes;
